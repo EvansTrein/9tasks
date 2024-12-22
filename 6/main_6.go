@@ -5,51 +5,54 @@ import (
 	"math/rand"
 )
 
-func randomGenerator(ch chan int) {
-	for {
-		ch <- rand.Int()
-	}
+// Напишите генератор случайных чисел используя небуфферизированный канал
+func RandNumsGenerator(count, diapason int) <-chan int {
+	nums := make(chan int)
+
+	go func() {
+		for i := 0; i < count; i++ {
+			nums <- rand.Intn(diapason)
+		}
+		close(nums)
+	}()
+	return nums
 }
 
 func main() {
-	ch := make(chan int)
-
-	go randomGenerator(ch)
-
-	for i := 0; i < 10; i++ {
-		fmt.Println(<-ch)
+	for num := range RandNumsGenerator(10, 100) {
+		fmt.Println(num)
 	}
-
-	close(ch)
 }
 
-// package main
-
-// import (
-// 	"fmt"
-// 	"math/rand"
-// )
-
-// func randomGenerator(ch chan int) {
+// Напишите генератор случайных чисел используя небуфферизированный канал
+// func RandNumsGenerator(ch chan int) {
+// 	iterCount := 0
 // 	for {
-// 		ch <- rand.Int()
+// 		iterCount++
+// 		ch <- rand.Intn(1000)
+// 		if iterCount == 20 {
+// 			time.Sleep(time.Second * 2)
+// 			close(ch)
+// 		}
 // 	}
 // }
 
 // func main() {
 // 	ch := make(chan int)
 
-// 	go randomGenerator(ch)
+// 	go RandNumsGenerator(ch)
 
-// 	for i := 0; i < 10; i++ {
+// 	for {
+// 		// select приоритет операций:
+// 		// 1 - чтение из канала (если несколько case читают, то планировщик выбырет рандомный), unblock операция
+// 		// 2 - запись в канал, block операция
+// 		// 3 - default
 // 		select {
-// 		case num := <-ch:
+// 		case num := <-ch:  // чтение из канала, unblock операция, на 20 итерации горутнна randomGenerator будет стоять 2 секунды
 // 			fmt.Println(num)
-// 		case <-time.After(1 * time.Second):
+// 		case <-time.After(time.Second * 1):  // в это время сработает этот case, так как тут 1 секунда
 // 			fmt.Println("Таймаут")
 // 			return
 // 		}
 // 	}
-
-// 	close(ch)
 // }

@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 // сложность O(n)
 func SetDifference(slice1, slice2 []string) (diffSlice []string) {
