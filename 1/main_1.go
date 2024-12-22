@@ -9,8 +9,8 @@ import (
 
 // 1. Создает несколько переменных различных типов данных
 var numDecimal int = 42           // Десятичная система
-var numOctal int = 052            // Восьмеричная система
-var numHexadecimal int = 0x2A     // Шестнадцатиричная система
+var numOctal int = 032            // Восьмеричная система
+var numHexadecimal int = 0x2C     // Шестнадцатиричная система
 var pi float64 = 3.14             // Тип float64
 var name string = "Golang"        // Тип string
 var isActive bool = true          // Тип bool
@@ -24,9 +24,9 @@ func DefinitionType(variable interface{}) string {
 func main() {
 
 	// 2. Определяет тип каждой переменной и выводит его на экран
-	fmt.Printf("numDecimal -> %v, type %T\n", numDecimal, numDecimal)
-	fmt.Printf("numOctal -> %v, type %T\n", numOctal, numOctal)
-	fmt.Printf("numHexadecimal -> %v, type %T\n", numHexadecimal, numHexadecimal)
+	fmt.Printf("numDecimal -> %v, type %T\n", numDecimal, numDecimal) 
+	fmt.Printf("numOctal -> %o, type %T\n", numOctal, numOctal) // выводит в Восьмеричной системе
+	fmt.Printf("numHexadecimal -> %x, type %T\n", numHexadecimal, numHexadecimal) // выводит в Шестнадцатиричной системе
 	fmt.Printf("pi -> %v, type %T\n", pi, pi)
 	fmt.Printf("name -> %v, type %T\n", name, name)
 	fmt.Printf("isActive -> %v, type %T\n", isActive, isActive)
